@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\MonitoreadorController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -13,33 +16,14 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        $user = Auth::user();
-
-        // Verificar si el usuario tiene un rol
-        if (!$user->role) {
-            return redirect()->route('home')->with('error', 'No tienes un rol asignado.');
-        }
-
-        // Redirigir al usuario según su rol
-        return redirect(match ($user->role->nombre) {
-            'Administrador' => route('admin.dashboard'),
-            'Supervisor' => route('supervisor.dashboard'),
-            'Monitoreador' => route('monitoreador.dashboard'),
-            default => route('home'), // Redirige a la página de inicio
-        });
-    })->name('dashboard');
+    // Redirigir al dashboard según el rol
+    Route::get('/dashboard', [DashboardController::class, 'redirectToDashboard'])->name('dashboard');
 
     // Rutas específicas para cada rol
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/supervisor/dashboard', [SupervisorController::class, 'dashboard'])->name('supervisor.dashboard');
+    Route::get('/monitoreador/dashboard', [MonitoreadorController::class, 'dashboard'])->name('monitoreador.dashboard');
 
-    Route::get('/supervisor/dashboard', function () {
-        return view('supervisor.dashboard');
-    })->name('supervisor.dashboard');
-
-    Route::get('/monitoreador/dashboard', function () {
-        return view('monitoreador.dashboard');
-    })->name('monitoreador.dashboard');
+    Route::get('/monitoreador/calles', [MonitoreadorController::class, 'calles'])->name('monitoreador.calles');
+    Route::get('/monitoreador/flujo-vehicular', [MonitoreadorController::class, 'flujoVehicular'])->name('monitoreador.flujo-vehicular');
 });
