@@ -1,7 +1,13 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+
+@section('title', 'Monitor')
+
+@section('content_header')
+    <h1>Bienvenido Monitoreador</h1>
+@stop
 
 @section('content')
-    <h1>Dashboard del Monitoreador</h1>
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -20,4 +26,13 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
+
+@section('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+@stop
+
+@section('js')
+    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+@stop

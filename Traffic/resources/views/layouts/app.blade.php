@@ -12,13 +12,12 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Styles -->
+    @stack('styles') <!-- Mueve esto aquí -->
+    @vite(['resources/css/app.css'])
 
     <!-- Livewire -->
     @livewireStyles
-
-    @stack('styles') <!-- Mueve esto aquí -->
 
     <!-- Incluye GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>

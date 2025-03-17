@@ -53,10 +53,11 @@ class MonitoreadorController extends Controller
         return view('monitoreador.flujo-vehicular', compact('flujos'));
     }
 
-    public function calles()
-    {
-        $calles = Calle::with('semaforos')->get();
-        return view('monitoreador.calles', compact('calles'));
+        public function calles()
+        {
+            $calles = Calle::with('semaforos')->get();
+            $flujos = FlujoVehicular::with(['calle', 'clima', 'evento'])->get();
+            return view('monitoreador.calles', compact('calles', 'flujos'));
     }
 
     public function actualizarTiempoSemaforo(Request $request, $id)

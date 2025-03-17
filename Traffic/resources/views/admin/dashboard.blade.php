@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Admin')
 
 @section('content_header')
     <h1>Welcome Administradorr</h1>
@@ -8,6 +8,7 @@
 
 @section('content')
     <p>Welcome to this beautiful admin panel.</p>
+      <a href="{{ route('register') }}" class="btn btn-primary">Registrar Nuevo Usuario</a>
 @stop
 
 @section('css')
